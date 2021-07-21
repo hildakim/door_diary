@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+     .a-button {
+        text-align: center;
+        text-decoration: none;
+        font-family: 'Old Standard TT', serif;
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+        border-radius: 50%;
+        border: 2px white solid;
+        padding: 2px;
+     }
+    .direction{
+        text-align: center;
+    }
+    .direction a, span {
+        text-decoration: none;
+        font-family: 'Old Standard TT', serif;
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+}
+    .img-wrap-door-box {
+    display: flex;
+    justify-content: space-around;
+    }
+    .img-wrap-door {
+        background-color: white;
+        padding: 15px;
+        padding-bottom: 150px;
+    }
+    .doorknob-blue {
+        height: 15px;
+        width: 15px;
+        border: none;
+        border-radius: 50%;
+        background-color:rgb(23, 77, 255);
+    }
+    #keyword-input {
+    width: 500px;
+    height: 30px;
+    background-color: white;
+    font-family: 'Old Standard TT', serif;
+    margin: 10px;
+    border: none;
+}
+    .search-form-box {
+        text-align: center;
+    }
+    #search-btn {
+        height: 30px;
+        background-color: white;
+        color:rgb(23, 77, 255);
+        font-family: 'Old Standard TT', serif;
+        font-size : 17px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="search-form-box">
+    <form action="{%url 'doors:search' %}" method="get">
+        <input type="text" name="keyword" id="keyword-input"> 
+        <input type="submit" value="search" id="search-btn">
+    </form>
+</div>
+
+<br>
+<div class="img-wrap-door-box">
+    {% for post in posts %}
+    
+        {% if post.image %}
+        <div class="img-wrap-door">
+            <a href = "{%url 'doors:detail' post.id %}">
+                <img src="{{post.image_thumbnail.url}}" alt="">
+            </a>
+            <br>
+            <br>
+            <div class="doorknob-blue"></div>
+        </div>
+        {% endif %}
+    
+    {% endfor %}
+</div>
+
+<br>
+    <div class="container direction">
+    {% if posts.has_previous %}
+        <a href="?page=1" class="a-button">First</a>
+        <a href="?page={{posts.previous_page_number}}">&#9194;</a>
+    {% endif %}
+
+        <span>{{posts.number}}</span>
+        <span>of</span>
+        <span>{{posts.paginator.num_pages}}</span>
+
+    {% if posts.has_next %}
+        <a href="?page={{posts.next_page_number}}">&#9193;</a>
+        <a href="?page={{posts.paginator.num_pages}}" class="a-button">Last</a>
+    {% endif %}
+    </div>
+
+{% endblock %}

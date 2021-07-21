@@ -1,15 +1,55 @@
-{%load socialaccount %}
-{% providers_media_js %}
-<h1>hello world</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
-<a href="/accounts/signup">회원가입</a>
+<style>
+    .door-box {
+        text-align: center;
+        min-height: 500px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .room-num{
+        border: 2px white solid;
+        padding-top: 50px;
+        /* padding-bottom: 250px; */
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .room-num span {
+        font-family: 'Old Standard TT', serif;
+        font-size: 40px;
+        color: white;
+        text-decoration: none;
+        border: 2px white solid;
+        border-radius: 50%;
+        padding: 10px;
+    }
+    .doorknob {
+        height: 15px;
+        width: 15px;
+        border: none;
+        border-radius: 50%;
+        background-color: white;
+        
+    }
+    .door-box a {
+        text-decoration: none;
+    }
+</style>
 
-<a href="/accounts/logout">로그아웃</a>
+<div class="door-box">
+    <a href="{%url 'doors:room' %}">
+    <div class="room-num">
+        <span>My Room</span>
+        <div style="height:100px;"></div>
+        <div class="doorknob"></div>
+        <div style="height:180px;"></div>
+    </div>
+    </a>
+</div>
 
-<a href="{% provider_login_url 'google' %}">구글 로그인</a>
 
-{%if user.is_authenticated %}
-{{ user.username }} 님 환영
-
-{%endif%}
-
+{% endblock %}

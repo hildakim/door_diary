@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+{%load socialaccount %}
+{% providers_media_js %}
+
+
+<style>
+    .yes-auth, .no-auth{
+        text-align: center;
+    }
+    .a-auth {
+        width: fit-content;
+        margin: 20px auto;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        font-family: 'Old Standard TT', serif;
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+        border-radius: 50%;
+        border: 2px white solid;
+        padding: 10px;
+
+    }
+    p {
+        font-family: 'Old Standard TT', serif;
+        color: white;
+        font-size: 30px;
+        font-weight: bold;
+    }
+</style>
+
+
+{%if user.is_authenticated %}
+<div class="yes-auth">
+    <p>{{ user.username }} 님</p>
+
+    <a href="/accounts/logout" class="a-auth">로그아웃</a>
+</div>
+
+{%else%}
+<div class="not-auth">
+    <a href="/accounts/signup" class="a-auth">회원가입</a>
+    <a href="/accounts/login"  class="a-auth">로그인</a>
+    <a href="{% provider_login_url 'google' %}" class="a-auth">구글 로그인</a>
+</div>
+
+{%endif%}
+
+
+{% endblock %}

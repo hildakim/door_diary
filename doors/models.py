@@ -4,11 +4,11 @@ from imagekit.processors import ResizeToFill
 
 # Create your models here.
 class PhotoDiary(models.Model):
-    upload_date = models.DateTimeField()
     body = models.TextField()
-    image = models.ImageField(upload_to='board/', null=True, blank=True)
-    image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(100, 100)])
-
+    upload_date = models.DateTimeField()
+    image = models.ImageField(upload_to='doors/', null=False, blank=False,  default='default-image.jpg')
+    image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(150, 150)])
+   
 
 def __str__(self):
     return self.title 

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+.a-button {
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Old Standard TT', serif;
+    color: rgb(23, 77, 255);
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 2px rgb(23, 77, 255) solid;
+    padding: 2px;
+    margin:5px;
+}
+.image-box{
+    box-sizing: border-box;
+    width: 500px;
+    background-color: white;
+}
+.image-box img{
+    display: block;
+    margin:auto;
+    width: 500px;
+}
+.date-box{
+    box-sizing: border-box;
+    width: 500px;
+    font-family: 'Old Standard TT', serif;
+    color: rgb(23, 77, 255);
+    background-color: white;
+    font-size: 30px;
+    padding: 5px;
+}
+.text-box {
+    box-sizing: border-box;
+    width: 500px;
+    min-height: 300px;
+    font-family: 'Old Standard TT', serif;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    padding: 5px;
+    overflow: scroll;
+}
+.button-box {
+    box-sizing: border-box;
+    width: 500px;
+    padding: 10px;
+    text-align: center;
+    background-color: white;
+}
+.diary-wrapper {
+    margin: 50px;
+    /* border: 5px white solid; */
+}
+.container {
+    display: flex;
+    justify-content: center;
+}
+</style>
+
+
+
+<div class="diary-wrapper">
+    {% if blogPost.image %}
+    <div class="image-box">
+        <img src="{{blogPost.image.url}}" alt="" >
+    </div>
+    {% endif %}
+
+    <div class="date-box">
+        {{blogPost.upload_date}}
+    </div>
+    <div class="text-box">
+        {{blogPost.body | linebreaks }}
+    </div>
+    <div class="button-box">
+        <a href="{%url 'doors:edit' blogPost.id %}" class="a-button">edit</a>
+        <a href="{%url 'doors:delete' blogPost.id %}" class="a-button">delete</a>
+    </div>
+</div>
+{% endblock %}
